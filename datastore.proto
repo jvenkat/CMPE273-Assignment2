@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+message Request {
+    string k = 1;
+    string val= 2;
+}
+message Request1 {
+
+}
+message Response {
+    string k = 1;
+    string val = 2;
+}
+
+message Response1{
+    bytes k = 1;
+    bytes val = 2;
+}
+service Datastore {
+   rpc put(Request) returns (Response) {}
+   rpc get(Request) returns (Response) {}
+   rpc replicator(Request1) returns(stream Response1){}
+}
