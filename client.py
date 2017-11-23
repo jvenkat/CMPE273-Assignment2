@@ -32,9 +32,7 @@ def main():
     k=uuid.uuid4().hex
     response = client.put(k,val)
     print("## PUT Response: key = " + k)
-    print("GET Req Key:"+ response.k)
-    x = client.get(response.k)
-    print("get req value"+x.val)
+
 
 
 
