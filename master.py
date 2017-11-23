@@ -26,7 +26,8 @@ class MyDatastoreServicer(datastore_pb2.DatastoreServicer):
             for i in li:
                 print(i.k)
                 yield i
-		        li.pop(0)
+                li.pop(0)
+
     @decorator
     def put(self, request, context):
 
