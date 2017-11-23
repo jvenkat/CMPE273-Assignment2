@@ -19,25 +19,7 @@ class DatastoreClient():
         return self.stub.put(datastore_pb2.Request(k=k,val=val))
     def get(self, k):
         return self.stub.get(datastore_pb2.Request(k=k,val=val))
-    def RecordRoute(self, request_iterator, context):
-        point_count = 0
-        feature_count = 0
-        distance = 0.0
-        prev_point = None
 
-        start_time = time.time()
-        for point in request_iterator:
-            point_count += 1
-            if get_feature(self.db, point):
-                feature_count += 1
-            if prev_point:
-                distance += get_distance(prev_point, point)
-                prev_point = point
-            elapsed_time = time.time() - start_time
-        return route_guide_pb2.RouteSummary(point_count=point_count,
-                                            feature_count=feature_count,
-                                            distance=int(distance),
-                                            elapsed_time=int(elapsed_time))
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("host", help="display a square of a given number")
@@ -48,8 +30,11 @@ def main():
     val = 'foo'
     print("## PUT Request: value = " + val)
     k=uuid.uuid4().hex
-    resp = client.put(k,val)
+    response = client.put(k,val)
     print("## PUT Response: key = " + k)
+    print("GET Req Key:"+ response.key)
+    x = client.get(resp.key)
+    print("get req value"+x.value)
 
 
 
